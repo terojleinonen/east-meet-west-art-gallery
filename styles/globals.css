@@ -1,26 +1,115 @@
+/* globals.css */
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
+/* Enable system preference dark mode */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    color-scheme: dark;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Smooth transitions for theme switching */
+html, body {
+  transition: background-color 0.6s ease, color 0.6s ease;
+  position: relative;
+  overflow-x: hidden;
+}
+
+header, footer, section, div, nav {
+  transition: background-color 0.6s ease, color 0.6s ease, border-color 0.6s ease;
+}
+
+/* Grain overlay for canvas-like texture */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml;utf8,\
+    <svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'>\
+      <filter id='n'>\
+        <feTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='4' stitchTiles='stitch'/>\
+      </filter>\
+      <rect width='100%' height='100%' filter='url(%23n)'/>\
+    </svg>");
+  opacity: 0.07;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  z-index: 9998;
+  animation: grainFlicker 8s infinite steps(6);
+}
+
+/* Adaptive grain opacity */
+html.light body::after {
+  opacity: 0.04;
+}
+html.dark body::after {
+  opacity: 0.12;
+}
+
+/* Artistic brush-stroke overlay effect */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: -100%;
+  width: 200%;
+  height: 100%;
+  background: transparent;
+  pointer-events: none;
+  z-index: 9999;
+  transform: skewX(-12deg);
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  background-size: 300% 300%;
+}
+
+/* When theme changes, trigger sweep and flow */
+html.theme-transition body::before {
+  opacity: 1;
+  animation: brushSweep 0.8s ease forwards, brushFlow 6s ease-in-out infinite;
+}
+
+/* Light mode brush effect with dynamic accent colors */
+html.light.theme-transition body::before {
+  background-image:
+    radial-gradient(circle at center, rgba(255,255,255,0.08), transparent 70%),
+    repeating-linear-gradient(45deg,
+      var(--brush-primary, rgba(200,150,100,0.1)) 0,
+      var(--brush-primary, rgba(200,150,100,0.1)) 2px,
+      transparent 2px, transparent 6px),
+    linear-gradient(120deg,
+      var(--brush-secondary, rgba(220,150,90,0.15)) 0%,
+      var(--brush-primary, rgba(180,120,60,0.08)) 100%);
+  background-blend-mode: overlay, multiply;
+}
+
+/* Dark mode brush effect with dynamic accent colors */
+html.dark.theme-transition body::before {
+  background-image:
+    radial-gradient(circle at center, rgba(0,0,0,0.15), transparent 70%),
+    repeating-linear-gradient(-45deg,
+      var(--brush-primary, rgba(80,120,180,0.15)) 0,
+      var(--brush-primary, rgba(80,120,180,0.15)) 4px,
+      transparent 4px, transparent 10px),
+    linear-gradient(120deg,
+      var(--brush-secondary, rgba(80,120,180,0.15)) 0%,
+      var(--brush-primary, rgba(40,60,120,0.08)) 100%);
+  background-blend-mode: overlay, multiply;
+}
+
+/* Animations */
+@keyframes brushSweep {
+  from { left: -100%; }
+  to { left: 100%; }
+}
+
+@keyframes brushFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes grainFlicker {
+  0%, 100% { opacity: inherit; }
+  50% { opacity: calc(inherit + 0.02); }
 }

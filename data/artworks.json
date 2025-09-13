@@ -1,0 +1,57 @@
+{
+  "heroImage": {
+  "title": "East Meets West",
+  "description": "Fusion of Japanese and Chinese artistic heritage",
+  "image": "/hero/hero_image.jpeg",
+  "width": 1408,
+  "height": 768,
+  "primaryColor": "#0d0d0d",
+  "secondaryColor": "#b22222"
+},
+  "artworks": [
+    {
+      "id": 1,
+      "title": "Zen Garden",
+      "artist": "Katsushika Hokusai",
+      "year": "1830",
+      "image": "/artworks/zen_garden.jpeg",
+      "width": 896,
+      "height": 1280,
+      "primaryColor": "#8e7d6d",
+      "secondaryColor": "#d4cbb5"
+    },
+    {
+      "id": 2,
+      "title": "Calligraphy Flow",
+      "artist": "Wang Xizhi",
+      "year": "350 AD",
+      "image": "/artworks/calligraphy_flow.jpeg",
+      "width": 864,
+      "height": 1184,
+      "primaryColor": "#1a1a1a",
+      "secondaryColor": "#c0a96e"
+    },
+    {
+      "id": 3,
+      "title": "Porcelain Vase",
+      "artist": "Ming Dynasty",
+      "year": "15th Century",
+      "image": "/artworks/porcelain_vase.jpeg",
+      "width": 896,
+      "height": 1280,
+      "primaryColor": "#2a4d7d",
+      "secondaryColor": "#e6e6e6"
+    },
+    {
+      "id": 4,
+      "title": "Brush Strokes",
+      "artist": "Contemporary",
+      "year": "2021",
+      "image": "/artworks/brush_strokes.jpeg",
+      "width": 896,
+      "height": 1280,
+      "primaryColor": "#111111",
+      "secondaryColor": "#b56576"
+    }
+  ]
+}

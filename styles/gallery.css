@@ -1,0 +1,183 @@
+/* ============================
+   Base Container
+============================ */
+.gallery-container {
+  display: flex;
+  flex-direction: column;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: "Inter", sans-serif;
+}
+
+/* ============================
+   Hero Section
+============================ */
+.hero-section {
+  position: relative;
+  width: 100%;
+  height: 70vh;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  padding: 2rem;
+  background: var(--background);
+}
+
+.hero-image-wrapper {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.hero-image {
+  object-fit: cover;
+  filter: brightness(0.85) contrast(1.1);
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.6),
+    rgba(0, 0, 0, 0.1) 50%,
+    rgba(0, 0, 0, 0)
+  );
+  mix-blend-mode: multiply;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.hero-text {
+  position: relative;
+  z-index: 2;
+  color: var(--foreground);
+  max-width: 600px;
+  padding: 1rem 2rem;
+  backdrop-filter: blur(6px);
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 1rem;
+  animation: fadeUp 1s ease-out;
+}
+
+.hero-text h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem;
+  background: linear-gradient(
+    135deg,
+    var(--brush-primary),
+    var(--brush-secondary)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-text p {
+  font-size: 1.2rem;
+  line-height: 1.5;
+  opacity: 0.9;
+}
+
+/* ============================
+   Artwork Grid
+============================ */
+.art-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  padding: 3rem;
+}
+
+.art-card {
+  position: relative;
+  background: var(--background);
+  border-radius: 1.5rem;
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.art-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+}
+
+.art-image-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3/4;
+  overflow: hidden;
+}
+
+.art-image {
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.art-card:hover .art-image {
+  transform: scale(1.05);
+}
+
+.art-info {
+  padding: 1.5rem;
+  background: linear-gradient(
+    135deg,
+    var(--brush-primary),
+    var(--brush-secondary)
+  );
+  color: white;
+}
+
+.art-info h2 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem;
+}
+
+.art-info p {
+  font-size: 1rem;
+  opacity: 0.9;
+}
+
+/* ============================
+   Animations
+============================ */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================
+   Grain + Brush Textures
+============================ */
+.hero-section::after,
+.art-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("/textures/grain.png") repeat;
+  opacity: var(--grain-intensity, 0.08);
+  pointer-events: none;
+  mix-blend-mode: overlay;
+  z-index: 3;
+}
+
+/* ============================
+   Light/Dark Adaptive Grain
+============================ */
+:root {
+  --grain-intensity: 0.08;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --grain-intensity: 0.15;
+  }
+}
